@@ -29,10 +29,8 @@ describe("Given I am connected as an employee", () => {
       window.onNavigate(ROUTES_PATH.Bills)
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
-      //to-do write expect expression
       // The 'bills' icon should be highlighted in white 
       expect(windowIcon.classList.contains('active-icon'))
-
     })
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
@@ -131,6 +129,7 @@ describe("Given I am a user connected as Employee", () => {
       router()
       window.onNavigate(ROUTES_PATH.Bills)
       await waitFor(() => screen.getByText("Mes notes de frais"))
+      expect(screen.getByText("Mes notes de frais"))
 
       // spyOn mockStore
       jest.spyOn(mockStore, "bills")
