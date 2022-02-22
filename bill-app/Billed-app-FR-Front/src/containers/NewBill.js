@@ -50,6 +50,7 @@ export default class NewBill {
     // If the file is not a png/jpg/jpeg type, it gets cleared
     } else {
       this.document.querySelector(`input[data-testid='file']`).value = null;
+      alert('Veuillez sélectionner un fichier de format jpg/jpeg/png.')
     }
   }
 
