@@ -34,7 +34,7 @@ describe("Given I am connected as an employee", () => {
 })
 
 describe("Given I am connected as an employee and clicked on Nouvelle note de frais", () => {
-  describe("When I upload a file in jpg format", () => {
+  describe("When I upload a file in a jpg format", () => {
     test("Then it should accept the file and not display an alert", () => {
       // Mock a window alert for jest
       window.alert = jest.fn();
@@ -44,12 +44,29 @@ describe("Given I am connected as an employee and clicked on Nouvelle note de fr
       // Simulate the file as a jpg file
       fireEvent.change(inputFile, {
         target: {
-          files: [new File(["file.jpg"], "file.jpg", { type: "video/gif" })]
+          files: [new File(["file.jpg"], "file.jpg", { type: "image/jpg" })]
         }
       })
 
-      expect(inputFile.files[0].name).toBe("file.jpg");
       expect(mockAlert).not.toHaveBeenCalled();
+    })
+  })
+
+  describe("When I upload a file in a wrong format", () => {
+    test("Then it should display an alert", () => {
+      // Mock a window alert for jest
+      window.alert = jest.fn();
+      const mockAlert = jest.spyOn(window, "alert");
+      // Get the field to upload the test file
+      const inputFile = screen.getByTestId("file")
+      // Simulate the file as a video file
+      fireEvent.change(inputFile, {
+        target: {
+          files: [new File(["file.mp4"], "file.mp4", { type: "video/gif" })]
+        }
+      })
+
+      expect(mockAlert).toHaveBeenCalled();
     })
   })
 
@@ -81,7 +98,6 @@ describe("Given I am connected as an employee and clicked on Nouvelle note de fr
 describe("Given I am a user connected as employee and clicked on Nouvelle note de frais", () => {
   describe("When I click on submit", () => {
     test("Then a new bill should be created", () => {
-      // Instantiate the environment
       localStorage.setItem("user", JSON.stringify({ type: "Employee", email: "a@a" }));
       const root = document.createElement("div")
       root.setAttribute("id", "root")
