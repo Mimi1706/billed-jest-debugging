@@ -14,7 +14,7 @@ import { ROUTES, ROUTES_PATH } from "../constants/routes"
 
 describe("Given I am connected as an employee", () => {
   describe("When I click on Nouvelle note de frais", () => {
-    test("Then the button Envoyer une note de frais should be displayed", () => {
+    test("Then the text Envoyer une note de frais should be displayed", () => {
       localStorage.setItem("user", JSON.stringify({ type: "Employee", email: "a@a" }));
       const root = document.createElement("div")
       root.setAttribute("id", "root")
@@ -94,7 +94,7 @@ describe("Given I am connected as an employee and clicked on Nouvelle note de fr
   })
 })
 
-// POST Integration test (create and store the data)
+// POST Integration test
 describe("Given I am a user connected as employee and clicked on Nouvelle note de frais", () => {
   describe("When I click on submit", () => {
     test("Then a new bill should be created", () => {
@@ -105,7 +105,7 @@ describe("Given I am a user connected as employee and clicked on Nouvelle note d
       // Router will display NewBillUI
       router()
       window.onNavigate(ROUTES_PATH.NewBill)
-
+      // NewBill JS
       const newBill = new NewBill({document,onNavigate,store: null,localStorage: window.localStorage})
 
       const billTest = {
